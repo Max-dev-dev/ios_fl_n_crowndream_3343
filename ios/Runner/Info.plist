@@ -14,15 +14,6 @@
 	<string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
-	<key>CFBundleLocalizations</key>
-	<array>
-		<string>en-GB</string>
-		<string>en-AU</string>
-		<string>da</string>
-		<string>pt-PT</string>
-		<string>es-ES</string>
-		<string>sv</string>
-	</array>
 	<key>CFBundleName</key>
 	<string>ios_fl_n_crown_casino_3343</string>
 	<key>CFBundlePackageType</key>
@@ -32,7 +23,7 @@
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleVersion</key>
-	<string>2</string>
+	<string>3</string>
 	<key>ITSAppUsesNonExemptEncryption</key>
 	<false/>
 	<key>LSApplicationQueriesSchemes</key>
@@ -40,8 +31,6 @@
 		<string>fb</string>
 		<string>mailto</string>
 	</array>
-	<key>LSHasLocalizedDisplayName</key>
-	<true/>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSCameraUsageDescription</key>
