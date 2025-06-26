@@ -15,15 +15,6 @@ Future<void> _showAppNotFoundDialog(BuildContext ctx) => showDialog(
   ),
 );
 
-final Map<String, String Function(Uri)> _appLinkBuilders = {
-  'facebook.com': (u) => 'fb://facewebmodal/f?href=${u.toString()}',
-  'instagram.com': (u) => 'instagram://user?username=${u.pathSegments.isNotEmpty ? u.pathSegments.first : ''}',
-  'twitter.com': (u) => 'twitter://user?screen_name=${u.pathSegments.isNotEmpty ? u.pathSegments.first : ''}',
-  'x.com': (u) => 'twitter://user?screen_name=${u.pathSegments.isNotEmpty ? u.pathSegments.first : ''}',
-  'wa.me': (u) => 'whatsapp://send?phone=${u.pathSegments.first}',
-  'whatsapp.com': (u) => 'whatsapp://send?phone=${u.pathSegments.first}',
-};
-
 const List<String> _bankDomains = [
   'scotiabank.com',
   'bmoolbb',
@@ -39,6 +30,15 @@ const List<String> _bankDomains = [
   'uber.com',
   'de.ingdiba.bankingapp'
 ];
+
+final Map<String, String Function(Uri)> _appLinkBuilders = {
+  'facebook.com': (u) => 'fb://facewebmodal/f?href=${u.toString()}',
+  'instagram.com': (u) => 'instagram://user?username=${u.pathSegments.isNotEmpty ? u.pathSegments.first : ''}',
+  'twitter.com': (u) => 'twitter://user?screen_name=${u.pathSegments.isNotEmpty ? u.pathSegments.first : ''}',
+  'x.com': (u) => 'twitter://user?screen_name=${u.pathSegments.isNotEmpty ? u.pathSegments.first : ''}',
+  'wa.me': (u) => 'whatsapp://send?phone=${u.pathSegments.first}',
+  'whatsapp.com': (u) => 'whatsapp://send?phone=${u.pathSegments.first}',
+};
 
 Future<void> _openInAppOrBrowser(String url, BuildContext ctx) async {
   final uri = Uri.parse(url);
@@ -84,7 +84,6 @@ Future<NavigationActionPolicy> handleDeepLink({
     'bitcoincash',
     'tether',
   ];
-
   if (cryptoSchemes.contains(scheme)) {
     await Clipboard.setData(ClipboardData(text: urlStr));
     ScaffoldMessenger.of(ctx).showSnackBar(const SnackBar(content: Text('Address copied')));
