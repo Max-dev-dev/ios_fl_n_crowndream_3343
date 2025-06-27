@@ -51,8 +51,19 @@ Future<void> setUpOneSignal() async {
 // Відправка тегу OneSignal
 Future<void> sendTagByOneSignal(String tsId) async {
   await OneSignal.User.addTagWithKey('timestamp_user_id', tsId);
-  await OneSignal.login(tsId);
 }
+
+Future<void> _identifyUserInOneSignal(String tsId) async {
+  try {
+    if (tsId != null && tsId.isNotEmpty) {
+      await OneSignal.login(tsId);
+      print('OneSignal External ID : $tsId');
+    }
+  } catch (e) {
+    print('Error External ID: $e');
+  }
+}
+
 
 Future<void> _requestAppTracking() async {
   final status = await AppTrackingTransparency.requestTrackingAuthorization();
@@ -227,6 +238,7 @@ class _VerificationScreenState extends State<VerificationScreen> {
         // 5) Відправка тегу OneSignal
         await sendTagByOneSignal(timestampUserId!);
 
+        await _identifyUserInOneSignal(timestampUserId!);
         // 6)Івент 'uniq_visit'
         await sendEvent('uniq_visit');
 
@@ -278,11 +290,11 @@ class _VerificationScreenState extends State<VerificationScreen> {
         }
 
         // 13) Збереження даних у SharedPreferences та формування urlWeb
-        final idFv = prefs.getString('custom_user_id')!;
-        final afId = prefs.getString('appsflyer_id')!;
-        final osId = prefs.getString('one_signal_id')!;
+        final idFv = prefs.getString('custom_user_id') ?? '';
+        final afId = prefs.getString('appsflyer_id') ?? '';
+        final osId = prefs.getString('one_signal_id') ?? '';
         final tsId = timestampUserId!;
-        final adFa = prefs.getString('advertising_id')!;
+        final adFa = prefs.getString('advertising_id') ?? '';
 
         final swed1 = swedMap['swed_1']!;
         final swed2 = swedMap['swed_2']!;
@@ -329,8 +341,8 @@ class _VerificationScreenState extends State<VerificationScreen> {
         return;
       }
 
-      timestampUserId = prefs.getString('timestamp_user_id');
-      urlWeb = prefs.getString('url_web');
+      timestampUserId = prefs.getString('timestamp_user_id') ?? '';
+      urlWeb = prefs.getString('url_web') ?? '';
 
       if (shouldShowWhite) {
         Navigator.of(context).pushReplacementNamed('/white');
